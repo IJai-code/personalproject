@@ -1,79 +1,166 @@
-* {
-    box-sizing: border-box;
+:root {
+  --bg: #0c0c0f;
+  --bg-soft: #131317;
+  --panel: #16161b;
+  --line: rgba(255, 255, 255, 0.08);
+  --ink: #ededf1;
+  --ink-dim: #9a9aa4;
+  --glow: #7dd3fc;
+  --glow-warm: #f0abac;
 }
 
-:root {
-    --background: #09090b;
-    --surface: #18181b;
-    --surface-hover: #27272a;
-    --text: #fafafa;
-    --muted: #a1a1aa;
-    --accent: #38bdf8;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    font-family: Inter, Arial, sans-serif;
-    background:
-        radial-gradient(circle at top, #1e293b 0%, var(--background) 45%);
-    color: var(--text);
-    line-height: 1.7;
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* faint grid wash so the dark isn't flat */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 50% at 50% -10%, rgba(125, 211, 252, 0.10), transparent 70%),
+    radial-gradient(40% 40% at 85% 20%, rgba(240, 171, 172, 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+/* ---- header ---- */
+
 header {
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 40px 20px;
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+  border-bottom: 1px solid var(--line);
 }
 
 header h1 {
-    font-size: clamp(3rem, 8vw, 5rem);
-    margin-bottom: 10px;
-    letter-spacing: -3px;
+  font-size: clamp(2.8rem, 8vw, 4.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0 0 14px;
+  font-weight: 650;
+}
+
+/* first line under the name, spaced like a subtitle */
+header p:first-of-type {
+  color: var(--glow);
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0 0 20px;
 }
 
 header p {
-    color: var(--muted);
-    max-width: 600px;
-    font-size: 1.2rem;
+  color: var(--ink-dim);
+  max-width: 560px;
+  font-size: 1.08rem;
+  margin: 0 auto;
 }
 
+/* ---- sections ---- */
+
 section {
-    max-width: 1000px;
-    margin: 80px auto;
-    padding: 20px;
+  max-width: 860px;
+  margin: 96px auto;
+  padding: 0 24px;
+}
+
+section > p {
+  color: var(--ink-dim);
+  max-width: 640px;
 }
 
 h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
+  font-size: 1.7rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 28px;
+  display: inline-block;
 }
 
+/* little drawn underline instead of a plain heading */
+h2::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, var(--glow), transparent);
+}
+
+/* ---- project cards ---- */
+
 .card {
-    background: rgba(24, 24, 27, 0.8);
-    border: 1px solid #27272a;
-    padding: 30px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    transition: 0.3s ease;
+  background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+  border: 1px solid var(--line);
+  padding: 26px 28px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    border-color: var(--accent);
+  transform: translateY(-4px);
+  border-color: rgba(125, 211, 252, 0.4);
+  box-shadow: 0 14px 40px -20px rgba(125, 211, 252, 0.5);
 }
 
 .card h3 {
-    margin-top: 0;
-    font-size: 1.5rem;
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.card p {
+  margin: 0;
+  color: var(--ink-dim);
+}
+
+/* ---- footer ---- */
+
+footer,
+#contact {
+  text-align: left;
 }
 
 footer {
-    text-align: center;
-    padding: 50px;
-    color: var(--muted);
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--ink-dim);
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+/* respect people who don't want motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  section {
+    margin: 64px auto;
+  }
+  header {
+    min-height: 68vh;
+  }
 }
