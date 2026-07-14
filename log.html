@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="notebook">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ishaan Jha's rocket flight log - every high-power build, the wins and the faceplants.">
+  <title>rocket log - ishaan</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E🚀%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-log">
+
+  <a class="skip" href="#main">skip to content</a>
+
+  <div class="sticker" aria-hidden="true">3.. 2.. 1.. ✷</div>
+
+  <div class="topbar">
+    <span id="clock">my time: --:--</span>
+    <button id="theme-btn" type="button" aria-label="switch to blueprint mode">blueprint mode</button>
+  </div>
+
+  <header>
+    <h1>rocket log</h1>
+    <p class="tag">every launch, the wins and the faceplants</p>
+  </header>
+
+  <nav aria-label="main">
+    <a href="index.html">home</a>
+    <a href="about.html">about</a>
+    <a href="projects.html">projects</a>
+    <a href="log.html" class="here" aria-current="page">rocket log</a>
+  </nav>
+
+  <main id="main" tabindex="-1">
+    <section aria-labelledby="flights">
+      <h2 id="flights">flight history 🚀</h2>
+      <p>
+        notes from every rocket i've flown so far. the numbers are rough field
+        estimates, but the lessons stuck around a lot longer.
+      </p>
+
+      <!-- placeholder flights for now - i'll drop in the real numbers as i log them -->
+      <div class="table-wrap">
+        <table>
+          <caption>my high-power flights, most recent last</caption>
+          <thead>
+            <tr>
+              <th scope="col">name</th>
+              <th scope="col">motor</th>
+              <th scope="col">apogee</th>
+              <th scope="col">result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sparrow I</td>
+              <td>C6-5</td>
+              <td>~180 m</td>
+              <td><span class="badge ok">nominal</span></td>
+            </tr>
+            <tr>
+              <td>Sparrow II</td>
+              <td>D12-5</td>
+              <td>~310 m</td>
+              <td><span class="badge ok">nominal</span></td>
+            </tr>
+            <tr>
+              <td>Hedgehog</td>
+              <td>E12-6</td>
+              <td>~250 m</td>
+              <td><span class="badge meh">chute late</span></td>
+            </tr>
+            <tr>
+              <td>Big Idea</td>
+              <td>F15-8</td>
+              <td>???</td>
+              <td><span class="badge rip">rebuild</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">next up ✎</h2>
+      <div class="currently">
+        <b>goal:</b> clear 500 m and still get the nose cone back<br>
+        <b>working on:</b> a recovery deploy i actually trust<br>
+        <b>waiting on:</b> a calmer field and a lot less wind
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>made by hand, 2026. you're visitor #<span id="hits">1</span> from this browser :)</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

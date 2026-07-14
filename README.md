@@ -1,15 +1,29 @@
 # my personal site
 
-just my little corner of the internet. it's a portfolio page where i put the
-stuff i build and a bit about me.
+just my little corner of the internet. it's a portfolio + a log of the rockets
+i build. hand-coded with plain html, css, and a bit of javascript. no frameworks,
+no build step, you can just open index.html and it works.
 
-built it by hand with plain html and css. no frameworks, no build step, you can
-just open index.html and it works.
+## pages
 
-## what's in here
+- `index.html` — home, with a "currently" box
+- `about.html` — the longer version of who i am
+- `projects.html` — stuff i made, with filter buttons
+- `log.html` — every rocket launch, wins and faceplants
 
-- `index.html` — the whole page
-- `style.css` — all the styling (graph paper background, sticker, the crooked cards)
+## files
+
+- `style.css` — all the styling (graph paper, sticker, crooked cards, two themes)
+- `main.js` — the little interactive bits
+
+## the fun bits
+
+- day/night switch (notebook <-> blueprint), remembers your pick
+- typewriter tagline on the home page
+- filter buttons on the projects page
+- a tiny local clock
+- a visitor counter (counts your own visits, neocities style)
+- konami code does something. go find it.
 
 ## the look
 
@@ -19,10 +33,17 @@ perfect.
 
 ## running it
 
-nothing to install. clone it and open index.html in a browser. that's it.
+nothing to install. open index.html in a browser, or run any static server:
 
-## about me
+    python3 -m http.server
 
-i'm a student dev. i build software, mess with AI, and build high-powered
-rockets on the side. reach me at code4rk@gmail.com.
+then go to localhost:8000.
 
+## todo
+
+- [ ] add real github link
+- [ ] swap the rocket log rows for actual flights
+- [ ] figure out hosting (github pages probably)
+- [ ] maybe a photos page
+
+reach me at code4rk@gmail.com

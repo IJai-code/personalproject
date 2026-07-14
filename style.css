@@ -1,139 +1,434 @@
+/* ishaan's site - all hand written, no framework
+   two themes: notebook (light) and blueprint (dark), set on <html> by main.js
+   each page carries a body class (page-home, page-about ...) for small tweaks */
+
+:root {
+  /* notebook / daytime */
+  --paper: #fbf7ec;
+  --card: #fffdf8;
+  --ink: #1b2a4a;
+  --ink-soft: #556678; /* AA-compliant on the cream paper */
+  --line: #d9e2ec;
+  --accent: #b4431d; /* deep rust; passes AA as text on paper + card */
+  --pop: #ffd24a;
+  --shadow: #b9c7d8;
+
+  /* a little spacing scale so the rhythm stays even */
+  --gap: clamp(28px, 6vw, 46px);
+  --pad: clamp(18px, 4vw, 28px);
+}
+
+html[data-theme="blueprint"] {
+  /* nighttime, like actual blueprint paper */
+  --paper: #0f2a43;
+  --card: #12314f;
+  --ink: #eaf2ff;
+  --ink-soft: #8fb0d6;
+  --line: rgba(174, 209, 255, 0.14);
+  --accent: #ffd24a;
+  --pop: #4fc3f7;
+  --shadow: #071c30;
+}
+
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  padding: 0 18px 60px;
-  color: #1b2a4a;
-  font-family: "Gaegu", "Comic Sans MS", cursive;
-  font-size: 1.15rem;
-  line-height: 1.6;
-  /* graph paper */
-  background-color: #fbf7ec;
-  background-image:
-    linear-gradient(#d9e2ec 1px, transparent 1px),
-    linear-gradient(90deg, #d9e2ec 1px, transparent 1px);
-  background-size: 24px 24px;
+html {
+  scroll-behavior: smooth;
 }
 
-/* taped-on sticker, sits crooked in the corner */
+body {
+  margin: 0;
+  padding: 0 18px 64px;
+  color: var(--ink);
+  font-family: "Gaegu", "Comic Sans MS", cursive;
+  font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.2rem);
+  line-height: 1.65;
+  background-color: var(--paper);
+  /* the graph paper. two sets of lines, tiled */
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* keyboard users get a clear ring on anything focusable */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* the skip-link target is a container, not a control - no ring around it */
+main:focus {
+  outline: none;
+}
+
+/* skip link for screen readers / keyboard */
+.skip {
+  position: absolute;
+  left: 10px;
+  top: -48px;
+  z-index: 60;
+  background: var(--pop);
+  color: #1b2a4a;
+  font-family: "Space Mono", monospace;
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: top 0.2s ease;
+}
+.skip:focus {
+  top: 10px;
+}
+
+/* hidden from sight, still read aloud */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ---- the crooked corner sticker ---- */
 .sticker {
   position: fixed;
   top: 16px;
   right: -34px;
   transform: rotate(12deg);
-  background: #ffd24a;
+  background: var(--pop);
   color: #1b2a4a;
   font-family: "Space Mono", monospace;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 1px;
   padding: 6px 44px;
-  box-shadow: 2px 3px 0 #1b2a4a;
+  box-shadow: 2px 3px 0 var(--ink);
   z-index: 5;
+  user-select: none;
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+/* each page tapes its sticker on at a slightly different angle */
+.page-about   .sticker { transform: rotate(-8deg); }
+.page-projects .sticker { transform: rotate(6deg); }
+.page-log     .sticker { transform: rotate(-11deg); }
+
+/* ---- top bar: theme toggle + tiny clock ---- */
+.topbar {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 14px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
 }
 
+#clock {
+  color: var(--ink-soft);
+}
+
+#theme-btn {
+  cursor: pointer;
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 9px 14px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease;
+}
+#theme-btn:hover {
+  background: var(--pop);
+  color: #1b2a4a;
+}
+#theme-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* ---- header ---- */
 header {
   max-width: 640px;
-  margin: 70px auto 10px;
+  margin: clamp(38px, 8vw, 54px) auto 8px;
   text-align: center;
 }
 
 h1 {
   font-family: "Space Mono", monospace;
-  font-size: clamp(2.4rem, 9vw, 3.6rem);
+  font-size: clamp(2.3rem, 8.5vw, 3.6rem);
+  line-height: 1.05;
   margin: 0;
-  color: #12213f;
-  text-shadow: 3px 3px 0 #ffd24a;
+  text-shadow: 3px 3px 0 var(--pop);
+  word-break: break-word;
 }
 
 .tag {
   font-family: "Space Mono", monospace;
-  font-size: 0.85rem;
+  font-size: clamp(0.8rem, 0.75rem + 0.3vw, 0.92rem);
   letter-spacing: 2px;
-  color: #d15b3b;
-  margin: 6px 0 18px;
+  color: var(--accent);
+  margin: 10px 0 18px;
+  min-height: 1.3em; /* stop the page jumping while it types */
+}
+.tag .cursor {
+  color: var(--ink-soft);
+  font-weight: 700;
 }
 
 .blurb {
   margin: 0 auto;
-  max-width: 520px;
+  max-width: 30rem;
 }
 
+/* ---- nav ---- */
 nav {
   max-width: 640px;
-  margin: 0 auto 40px;
+  margin: 10px auto var(--gap);
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
 }
 
 nav a {
-  display: inline-block;
-  margin: 4px 6px;
-  padding: 3px 14px;
+  padding: 12px 17px;
   font-family: "Space Mono", monospace;
   font-size: 0.85rem;
-  color: #12213f;
+  color: var(--ink);
   text-decoration: none;
-  border: 2px dashed #9fb3c8;
+  border: 2px dashed var(--ink-soft);
   border-radius: 20px;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
-
 nav a:hover {
-  background: #ffd24a;
+  background: var(--pop);
   border-style: solid;
+  border-color: var(--ink);
+  color: #1b2a4a;
+  transform: translateY(-2px);
+}
+nav a.here {
+  background: var(--ink);
+  color: var(--paper);
+  border-style: solid;
+  border-color: var(--ink);
 }
 
+/* ---- sections / panels ---- */
 section {
   max-width: 640px;
-  margin: 46px auto;
-  background: #fffdf8;
-  border: 2px solid #12213f;
-  box-shadow: 5px 5px 0 #b9c7d8;
-  padding: 22px 26px;
+  margin: var(--gap) auto;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--shadow);
+  padding: var(--pad) calc(var(--pad) + 4px);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+section:hover {
+  box-shadow: 7px 7px 0 var(--shadow);
 }
 
 h2 {
   font-family: "Space Mono", monospace;
-  font-size: 1.35rem;
-  margin: 0 0 12px;
-  color: #12213f;
-  border-bottom: 2px dashed #d15b3b;
-  padding-bottom: 6px;
+  font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.4rem);
+  margin: 0 0 14px;
+  border-bottom: 2px dashed var(--accent);
+  padding-bottom: 7px;
 }
+/* tiny per-page difference in the heading rule */
+.page-about h2 { border-bottom-style: dotted; }
+.page-log h2   { border-bottom-style: solid; border-bottom-width: 1px; }
 
+section p { margin: 0 0 12px; }
+section p:last-child { margin-bottom: 0; }
+
+/* ---- project + skill cards ---- */
 .card {
-  background: #fbf7ec;
-  border: 2px solid #12213f;
-  padding: 14px 18px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 15px 18px;
   margin: 16px 0;
-  box-shadow: 3px 3px 0 #ffd24a;
+  box-shadow: 3px 3px 0 var(--pop);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-
+.card:last-child { margin-bottom: 0; }
 .card h3 {
   font-family: "Space Mono", monospace;
-  margin: 0 0 4px;
-  color: #d15b3b;
+  margin: 0 0 5px;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+.card p { margin: 0 0 8px; }
+.card p:last-child { margin-bottom: 0; }
+
+.card .tags {
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.5px;
 }
 
-.card p {
-  margin: 0;
-}
-
-/* little crooked tilts so it doesn't feel machine-perfect */
+/* the little tilt so nothing is machine perfect */
 .tilt-l { transform: rotate(-1.4deg); }
 .tilt-r { transform: rotate(1.2deg); }
-.tilt-l:hover, .tilt-r:hover { transform: rotate(0); }
-
-a {
-  color: #d15b3b;
-  font-weight: 700;
+.tilt-l:hover, .tilt-r:hover {
+  transform: rotate(0);
+  box-shadow: 5px 6px 0 var(--pop);
 }
 
+/* filter hides a card */
+.card.hide { display: none; }
+
+/* ---- filter buttons ---- */
+.filters {
+  margin: 6px 0 4px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+.filters button {
+  cursor: pointer;
+  padding: 9px 14px;
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink-soft);
+  font-family: inherit;
+  font-size: inherit;
+  transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.filters button:hover { transform: translateY(-2px); }
+.filters button.on {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+html[data-theme="blueprint"] .filters button.on { color: #12213f; }
+
+/* ---- the "currently" box ---- */
+.currently {
+  font-family: "Space Mono", monospace;
+  font-size: 0.83rem;
+  line-height: 1.95;
+}
+.currently b { color: var(--accent); }
+
+/* ---- rocket log table ---- */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  min-width: 380px;
+}
+caption {
+  text-align: left;
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  padding-bottom: 8px;
+}
+th, td {
+  text-align: left;
+  padding: 9px 10px;
+  border-bottom: 1px dashed var(--line);
+}
+th {
+  font-family: "Space Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
+}
+tbody tr {
+  transition: background 0.15s ease;
+}
+tbody tr:hover td { background: var(--paper); }
+.badge {
+  font-family: "Space Mono", monospace;
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border: 1px solid var(--ink);
+  white-space: nowrap;
+}
+.badge.ok  { background: #cdeccd; color: #1b4a1b; }
+.badge.meh { background: var(--pop); color: #1b2a4a; }
+.badge.rip { background: #f3c2b8; color: #6a1b0b; }
+
+a {
+  color: var(--accent);
+  font-weight: 700;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+a:hover { color: var(--ink); }
+
+/* ---- footer + visitor counter ---- */
 footer {
   max-width: 640px;
-  margin: 40px auto 0;
+  margin: var(--gap) auto 0;
   text-align: center;
   font-family: "Space Mono", monospace;
   font-size: 0.8rem;
-  color: #627d98;
+  color: var(--ink-soft);
+}
+#hits { color: var(--accent); }
+
+/* ---- the konami rocket ---- */
+#rocket {
+  position: fixed;
+  left: 50%;
+  bottom: -60px;
+  font-size: 3rem;
+  z-index: 40;
+  pointer-events: none;
+}
+@keyframes launch {
+  0%   { bottom: -60px; opacity: 1; }
+  80%  { opacity: 1; }
+  100% { bottom: 110vh; opacity: 0; }
+}
+.launch { animation: launch 1.6s ease-in forwards; }
+
+/* ---- responsive ---- */
+@media (max-width: 560px) {
+  body { padding: 0 14px 48px; }
+  h1 { text-shadow: 2px 2px 0 var(--pop); }
+  section:hover { box-shadow: 5px 5px 0 var(--shadow); } /* no grow on touch */
+}
+@media (max-width: 520px) {
+  .tilt-l, .tilt-r { transform: none; }
+  .sticker { display: none; }
+  .topbar { justify-content: center; }
+}
+
+/* respect people who'd rather not have motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

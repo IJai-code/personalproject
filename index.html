@@ -1,69 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="notebook">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ishaan Jha - student developer and high-power rocket builder. Projects, notes, and a flight log.">
   <title>ishaan's corner</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E🚀%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="page-home">
 
-  <div class="sticker">launch ready ✷</div>
+  <a class="skip" href="#main">skip to content</a>
+
+  <div class="sticker" aria-hidden="true">launch ready ✷</div>
+
+  <div class="topbar">
+    <span id="clock">my time: --:--</span>
+    <button id="theme-btn" type="button" aria-label="switch to blueprint mode">blueprint mode</button>
+  </div>
 
   <header>
     <h1>Ishaan Jha</h1>
-    <p class="tag">developer / builder / rocket guy</p>
+    <p class="tag" id="type" aria-hidden="true">developer / builder / rocket guy</p>
+    <p class="visually-hidden">developer, builder, and rocket guy</p>
     <p class="blurb">
-      i build software, mess around with AI, and learn by making stuff.
-      i also build hardware, including rockets, because aerospace is the best.
+      i build software, poke at AI, and learn by making stuff. i also build
+      hardware, mostly rockets, because aerospace is the best excuse to use math.
     </p>
   </header>
 
-  <nav>
-    <a href="#about">about</a>
-    <a href="#projects">projects</a>
-    <a href="#contact">contact</a>
+  <nav aria-label="main">
+    <a href="index.html" class="here" aria-current="page">home</a>
+    <a href="about.html">about</a>
+    <a href="projects.html">projects</a>
+    <a href="log.html">rocket log</a>
   </nav>
 
-  <section id="about">
-    <h2>about me ✎</h2>
-    <p>
-      i'm a student dev who likes building things. AI tools, web apps, little
-      experiments. off the screen i'm into math, physics, and aerospace, and i
-      build high-powered rockets.
-    </p>
-  </section>
+  <main id="main" tabindex="-1">
+    <section aria-labelledby="cur">
+      <h2 id="cur">currently ✎</h2>
+      <div class="currently">
+        <b>building:</b> SpeedyBot, plus this site (currently arguing with CSS)<br>
+        <b>learning:</b> python, and enough math to keep my rockets pointing up<br>
+        <b>reading:</b> any propulsion write-up i can get my hands on<br>
+        <b>mood:</b> caffeinated and slightly behind schedule
+      </div>
+    </section>
 
-  <section id="projects">
-    <h2>things i made ⚙</h2>
-
-    <div class="card tilt-l">
-      <h3>Ellery AI</h3>
-      <p>an AI platform that turns messy data into interactive visual stories.</p>
-    </div>
-
-    <div class="card tilt-r">
-      <h3>SpeedyBot</h3>
-      <p>a slack bot built with node.js + slack bolt with api-powered commands.</p>
-    </div>
-
-  </section>
-
-  <section id="contact">
-    <h2>say hi ✦</h2>
-    <p>i'm around on github, or just send me an email.</p>
-    <p>
-      <a href="https://github.com/">github</a> /
-      <a href="mailto:code4rk@gmail.com">email</a>
-    </p>
-  </section>
+    <section aria-labelledby="hi">
+      <h2 id="hi">quick hello 👋</h2>
+      <p>
+        welcome to my corner of the internet. it's mostly projects and a log of
+        the rockets i build, some that flew and some that very much did not.
+      </p>
+      <p>
+        have a look around, flip the theme if it's late, and if you still
+        remember the konami code, give it a try.
+      </p>
+    </section>
+  </main>
 
   <footer>
-    <p>made by hand, 2026. thanks for stopping by :)</p>
+    <p>made by hand, 2026. you're visitor #<span id="hits">1</span> from this browser :)</p>
   </footer>
 
+  <script src="main.js"></script>
 </body>
 </html>

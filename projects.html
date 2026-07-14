@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="notebook">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projects by Ishaan Jha - AI tools, bots, and hand-built web experiments.">
+  <title>projects - ishaan</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E🚀%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-projects">
+
+  <a class="skip" href="#main">skip to content</a>
+
+  <div class="sticker" aria-hidden="true">the good stuff ✷</div>
+
+  <div class="topbar">
+    <span id="clock">my time: --:--</span>
+    <button id="theme-btn" type="button" aria-label="switch to blueprint mode">blueprint mode</button>
+  </div>
+
+  <header>
+    <h1>things i made</h1>
+    <p class="tag">some shipped, some held together with hope</p>
+  </header>
+
+  <nav aria-label="main">
+    <a href="index.html">home</a>
+    <a href="about.html">about</a>
+    <a href="projects.html" class="here" aria-current="page">projects</a>
+    <a href="log.html">rocket log</a>
+  </nav>
+
+  <main id="main" tabindex="-1">
+    <section aria-labelledby="proj">
+      <h2 id="proj">projects ⚙</h2>
+
+      <div class="filters" role="group" aria-label="filter projects by tag">
+        <span aria-hidden="true">filter:</span>
+        <button type="button" class="on" data-filter="all" aria-pressed="true">all</button>
+        <button type="button" data-filter="web" aria-pressed="false">web</button>
+        <button type="button" data-filter="ai" aria-pressed="false">ai</button>
+        <button type="button" data-filter="bots" aria-pressed="false">bots</button>
+      </div>
+
+      <div class="card tilt-l" data-tags="ai web">
+        <h3>Ellery AI</h3>
+        <p>an AI platform that turns messy data into interactive visual stories you can actually present.</p>
+        <p class="tags"># ai # web</p>
+      </div>
+
+      <div class="card tilt-r" data-tags="bots">
+        <h3>SpeedyBot</h3>
+        <p>a slack bot built with node.js + slack bolt, with quick api-powered commands for my server.</p>
+        <p class="tags"># bots # node</p>
+      </div>
+
+      <div class="card tilt-l" data-tags="web">
+        <h3>this website</h3>
+        <p>hand-coded, no framework. graph-paper theme with a day/night switch and a hidden rocket.</p>
+        <p class="tags"># web # for-fun</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>made by hand, 2026. you're visitor #<span id="hits">1</span> from this browser :)</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
